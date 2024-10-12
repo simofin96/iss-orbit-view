@@ -24,12 +24,12 @@ response = requests.get("http://api.open-notify.org/iss-now.json")
 
 timestamp_unix_format = response.json()["timestamp"]
 readable_date = datetime.datetime.fromtimestamp(timestamp_unix_format) 
-current_latitude = response.json()["iss_position"]["latitude"]
-current_longitude = response.json()["iss_position"]["longitude"]
+current_iss_latitude = float(response.json()["iss_position"]["latitude"])
+current_iss_longitude = float(response.json()["iss_position"]["longitude"])
 
 print(f"\nTimestamp: {readable_date}")
-print(f"Current latitude: {current_latitude}")
-print(f"Current longitude: {current_longitude}")
+print(f"Current latitude: {current_iss_latitude}")
+print(f"Current longitude: {current_iss_longitude}")
 
 ### Draw Earth ###
-draw_map.draw_earth()
+draw_map.draw_earth(current_iss_latitude, current_iss_longitude)

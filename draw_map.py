@@ -2,7 +2,7 @@ from mpl_toolkits.basemap import Basemap
 import numpy as np
 import matplotlib.pyplot as plt
 
-def draw_earth():
+def draw_earth(current_iss_latitude, current_iss_longitude):
     # llcrnrlat,llcrnrlon,urcrnrlat,urcrnrlon
     # are the lat/lon values of the lower left and upper right corners
     # of the map.
@@ -12,6 +12,10 @@ def draw_earth():
     plt.figure(figsize=(12, 8)) 
     m = Basemap(projection='merc',llcrnrlat=-80,urcrnrlat=80,\
                 llcrnrlon=-180,urcrnrlon=180,lat_ts=20,resolution='c')
+
+    x, y = m(current_iss_longitude, current_iss_latitude)
+    m.plot(x, y, color="red", marker="o", markersize=10, label='ISS Position')
+
     m.drawcoastlines()
     m.fillcontinents(color='lightgreen',lake_color='aqua')
 
