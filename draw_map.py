@@ -1,13 +1,21 @@
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 
-def update_iss_location(fig, m, iss, new_timestamp, new_lat, new_lon, iss_location_text):
+
+def update_iss_trajectory(fig, trajectory_plot, trajectory_lat, trajectory_lon):
+    """This function updates the ISS trajectory on the map."""
+    trajectory_plot.set_data(trajectory_lon, trajectory_lat)
+    fig.canvas.draw()
+    plt.pause(0.1)
+
+
+def update_iss_location(fig, iss, new_timestamp, new_lat, new_lon, iss_location_text):
     """This function updates the position of the ISS on the map."""
-    x, y = m(new_lon, new_lat)
-    iss.set_data(x, y)
+    iss.set_data(new_lon, new_lat)
     iss_location_text.set_text(f"ISS Coordinates\n\nLatitude: {new_lat}°\nLongitude: {new_lon}°\n{new_timestamp}")
     fig.canvas.draw()
     plt.pause(0.1)
+
 
 def draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list):
     """This function draws the Earth and a dot that indicates the current position of the ISS. 
@@ -20,6 +28,8 @@ def draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list):
 
     x, y = m(iss_longitude, iss_latitude)
     iss, = m.plot(x, y, color="red", marker="o", markersize=10, label='ISS Position')
+
+    trajectory, = m.plot([x], [y], linestyle="-", color="blue", linewidth=3, label="ISS Trajectory")
 
     m.drawcoastlines()
     m.fillcontinents(color='lightgreen', lake_color='aqua')
@@ -37,4 +47,4 @@ def draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list):
     # ISS location in the figure
     iss_location_text = fig.text(0.4, 0.08, f"ISS Coordinates\n\nLatitude: {iss_latitude}°\nLongitude: {iss_longitude}°\n{timestamp}", fontweight="bold", ha="center")
 
-    return fig, m, iss, iss_location_text
+    return fig, m, iss, trajectory, iss_location_text

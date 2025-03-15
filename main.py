@@ -16,12 +16,23 @@ try:
     timestamp, iss_latitude, iss_longitude = iss_api_calls.get_iss_location() # ISS location and timestamp
 
     ### Draw Earth and auto-update plot
-    fig, m, iss, iss_location_text = draw_map.draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list)
+    fig, m, iss, trajectory, iss_location_text = draw_map.draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list)
+
+    # Initialize lists to store the ISS trajectory
+    initial_iss_longitude, initial_iss_latitude = m(iss_longitude, iss_latitude)
+    trajectory_lon = [initial_iss_longitude]
+    trajectory_lat = [initial_iss_latitude]
 
     while(True):
+        time.sleep(5) # delay between consecutive API calls
         timestamp, iss_latitude, iss_longitude = iss_api_calls.get_iss_location()
-        draw_map.update_iss_location(fig, m, iss, timestamp, iss_latitude, iss_longitude, iss_location_text)
-        time.sleep(5) # recommended delay between consecutive calls in the documentation.
+        
+        new_iss_longitude, new_iss_latitude = m(iss_longitude, iss_latitude)
+        trajectory_lon.append(new_iss_longitude)
+        trajectory_lat.append(new_iss_latitude)
+
+        draw_map.update_iss_location(fig, iss, timestamp, new_iss_latitude, new_iss_longitude, iss_location_text)
+        draw_map.update_iss_trajectory(fig, trajectory, trajectory_lat, trajectory_lon)
 
 except ValidationError as e:
     error_messages = " | ".join([f"Field: {error['loc']}, Error: {error['msg']}" for error in e.errors()])
