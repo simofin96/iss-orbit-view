@@ -21,16 +21,16 @@ def get_people_in_iss():
     # number_of_people_in_space = response_json["number"]
     # print(f"Number of people currently in space: {number_of_people_in_space}")
 
-    list_people_in_space = response_json["people"]
-    list_people_on_iss = {astronaut["name"] for astronaut in list_people_in_space if astronaut["craft"] == "ISS"}
-    # number_people_on_iss = len(list_people_on_iss)
+    people_in_space_list = response_json["people"]
+    people_on_iss_list = {astronaut["name"] for astronaut in people_in_space_list if astronaut["craft"] == "ISS"}
+    # number_people_on_iss = len(people_on_iss_list)
 
     # print(f"Number of people currently on the ISS: {number_people_on_iss}")
     # print("\nNames:")
-    # for astronaut in list_people_on_iss:
+    # for astronaut in people_on_iss_list:
     #     print(astronaut)
 
-    return list_people_on_iss
+    return people_on_iss_list
 
 
 def get_iss_location():

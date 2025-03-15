@@ -10,11 +10,11 @@ from pydantic import ValidationError
 
 try:
     ### APIs first data extraction ###
-    list_people_on_iss = iss_api_calls.get_people_in_iss() # people aboard the ISS
+    people_on_iss_list = iss_api_calls.get_people_in_iss() # people aboard the ISS
     timestamp, iss_latitude, iss_longitude = iss_api_calls.get_iss_location() # ISS location and timestamp
 
     ### Draw Earth and auto-update plot ###
-    fig, m, iss, iss_location_text = draw_map.draw_earth(timestamp, iss_latitude, iss_longitude, list_people_on_iss)
+    fig, m, iss, iss_location_text = draw_map.draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list)
 
     while(True):
         timestamp, iss_latitude, iss_longitude = iss_api_calls.get_iss_location()
