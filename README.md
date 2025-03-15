@@ -1,2 +1,2 @@
-# ISS-location-ML
-Track the ISS location and predict its future position.
+# ISS Orbit View
+A project to track and visualize the International Space Station (ISS) in real-time. It fetches the ISS's position via an API, validates the data, and displays the station’s current location and trajectory on a map. Future enhancements may include predictive algorithms for trajectory forecasting.
