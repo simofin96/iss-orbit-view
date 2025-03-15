@@ -5,6 +5,9 @@ import requests
 import datetime
 from pydantic import ValidationError
 from data_validation import OpenNotifyPeopleOnSpaceModel, WhereTheISSAtLocationModel
+import logging
+
+logger = logging.getLogger()
 
 def get_people_in_iss():
     """This function uses the Open Notify API to return the list of crew members currently aboard the ISS."""
@@ -19,16 +22,15 @@ def get_people_in_iss():
     
     # Data extraction
     # number_of_people_in_space = response_json["number"]
-    # print(f"Number of people currently in space: {number_of_people_in_space}")
+    # logger.info(f"Number of people currently in space: {number_of_people_in_space}")
 
     people_in_space_list = response_json["people"]
     people_on_iss_list = {astronaut["name"] for astronaut in people_in_space_list if astronaut["craft"] == "ISS"}
     # number_people_on_iss = len(people_on_iss_list)
 
-    # print(f"Number of people currently on the ISS: {number_people_on_iss}")
-    # print("\nNames:")
-    # for astronaut in people_on_iss_list:
-    #     print(astronaut)
+    # logger.info(f"Number of people currently on the ISS: {number_people_on_iss}")
+    # astronaut_names = ", ".join(people_on_iss_list)
+    # logger.info(f"Names of astronauts currently on the ISS: {astronaut_names}")
 
     return people_on_iss_list
 
@@ -50,8 +52,8 @@ def get_iss_location():
     iss_latitude = response_json["latitude"]
     iss_longitude = response_json["longitude"]
 
-    # print(f"\nTimestamp: {timestamp}")
-    # print(f"Current ISS latitude: {iss_latitude}")
-    # print(f"Current ISS longitude: {iss_longitude}")
+    # logger.info(f"Timestamp: {timestamp}")
+    # logger.info(f"Current ISS latitude: {iss_latitude}")
+    # logger.info(f"Current ISS longitude: {iss_longitude}")
 
     return timestamp, iss_latitude, iss_longitude
