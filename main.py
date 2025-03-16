@@ -41,4 +41,4 @@ except ValidationError as e:
     logger.error(f"Validation failed: {error_messages}")
 
 except Exception as e:
-    logger.error(f"Unexpected exception: {e}")
+    logger.error(f"Unexpected exception: {e}", exc_info=True)
