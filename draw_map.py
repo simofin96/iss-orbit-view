@@ -2,17 +2,19 @@ from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 
 
-def update_iss_trajectory(fig, trajectory_plot, trajectory_lat, trajectory_lon):
+def update_iss_trajectory(fig, m, trajectory_plot, trajectory_lat, trajectory_lon):
     """This function updates the ISS trajectory on the map."""
-    trajectory_plot.set_data(trajectory_lon, trajectory_lat)
+    trajectory_x, trajectory_y = m(trajectory_lon, trajectory_lat)
+    trajectory_plot.set_data(trajectory_x, trajectory_y)
     fig.canvas.draw()
     plt.pause(0.1)
 
 
-def update_iss_location(fig, iss, new_timestamp, new_lat, new_lon, iss_location_text):
+def update_iss_location(fig, m, iss, iss_location_text, new_timestamp, new_iss_latitude, new_iss_longitude):
     """This function updates the position of the ISS on the map."""
-    iss.set_data(new_lon, new_lat)
-    iss_location_text.set_text(f"ISS Coordinates\n\nLatitude: {new_lat}°\nLongitude: {new_lon}°\n{new_timestamp}")
+    new_x, new_y = m(new_iss_longitude, new_iss_latitude)
+    iss.set_data(new_x, new_y)
+    iss_location_text.set_text(f"ISS Coordinates\n\nLatitude: {new_iss_latitude}°\nLongitude: {new_iss_longitude}°\n{new_timestamp}")
     fig.canvas.draw()
     plt.pause(0.1)
 
