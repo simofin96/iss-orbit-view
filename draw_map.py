@@ -49,4 +49,8 @@ def draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list):
     # ISS location in the figure
     iss_location_text = fig.text(0.4, 0.08, f"ISS Coordinates\n\nLatitude: {iss_latitude}°\nLongitude: {iss_longitude}°\n{timestamp}", fontweight="bold", ha="center")
 
+    # Show the figure
+    fig.canvas.draw()
+    plt.pause(0.1)
+
     return fig, map, iss_plot, trajectory_plot, iss_location_text
