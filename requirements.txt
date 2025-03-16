@@ -1,0 +1,5 @@
+numpy==1.26.4
+requests==2.32.3
+pydantic==2.10.6
+matplotlib==3.8.4
+basemap==1.4.1
