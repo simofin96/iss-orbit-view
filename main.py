@@ -21,20 +21,20 @@ try:
     trajectory_lon = [iss_longitude]
 
     ### Draw Earth and auto-update plot
-    fig, m, iss, trajectory, iss_location_text = draw_map.draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list)
+    fig, map, iss_plot, trajectory_plot, iss_location_text = draw_map.draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list)
 
     while(True):
         time.sleep(5) # delay between consecutive API calls
         new_timestamp, new_iss_latitude, new_iss_longitude = iss_api_calls.get_iss_location()
 
         trajectory_lat, trajectory_lon = trajectory_handler.update_trajectory(lat_list = trajectory_lat,
-                                                                      lon_list = trajectory_lon, 
-                                                                      new_lat = new_iss_latitude, 
-                                                                      new_lon = new_iss_longitude
-                                                                      )
+                                                                              lon_list = trajectory_lon, 
+                                                                              new_lat = new_iss_latitude, 
+                                                                              new_lon = new_iss_longitude
+                                                                              )
 
-        draw_map.update_iss_location(fig, m, iss, iss_location_text, new_timestamp, new_iss_latitude, new_iss_longitude)
-        draw_map.update_iss_trajectory(fig, m, trajectory, trajectory_lat, trajectory_lon)
+        draw_map.update_iss_location(fig, map, iss_plot, iss_location_text, new_timestamp, new_iss_latitude, new_iss_longitude)
+        draw_map.update_iss_trajectory(fig, map, trajectory_plot, trajectory_lat, trajectory_lon)
 
 except ValidationError as e:
     error_messages = " | ".join([f"Field: {error['loc']}, Error: {error['msg']}" for error in e.errors()])
