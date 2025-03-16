@@ -43,24 +43,24 @@ def draw_earth(timestamp, iss_latitude, iss_longitude, people_on_iss_list):
     plt.subplots_adjust(bottom=0.2, top=0.95, left=0.05, right=0.8)
 
     # Crew info in the figure
-    fig.text(0.88, 0.72, f"Number of crew members\n\n{len(people_on_iss_list)}", 
+    fig.text(0.87, 0.72, f"Number of crew members\n\n{len(people_on_iss_list)}", 
              fontweight="bold", 
              fontsize=12,
              ha="center",
-             bbox=dict(facecolor='beige', alpha=0.5))
+             bbox=dict(facecolor='beige', alpha=0.5, edgecolor='black', boxstyle='round,pad=0.7'))
     people_on_iss_list_string = "\n".join(people_on_iss_list) # a single string is created containing each name, separated by \n.
-    fig.text(0.88, 0.27, f"Crew members\n\n{people_on_iss_list_string}", 
+    fig.text(0.87, 0.27, f"Crew members\n\n{people_on_iss_list_string}", 
              fontweight="bold", 
              fontsize=12,
              ha="center",
-             bbox=dict(facecolor='beige', alpha=0.5))
+             bbox=dict(facecolor='beige', alpha=0.5, edgecolor='black', boxstyle='round,pad=0.7'))
 
     # ISS location in the figure
-    iss_location_text = fig.text(0.42, 0.03, f"ISS Coordinates\n\nLatitude: {iss_latitude}°\nLongitude: {iss_longitude}°\n{timestamp}", 
-                                 fontweight="bold",
-                                 fontsize=12, 
-                                 ha="center", 
-                                 bbox=dict(facecolor='beige', alpha=0.5))
+    iss_location_text = fig.text(0.42, 0.03, f"ISS Coordinates\n\nLatitude: {iss_latitude}°\nLongitude: {iss_longitude}°\n{timestamp}",
+                             fontweight="bold", 
+                             fontsize=12,
+                             ha="center", 
+                             bbox=dict(facecolor='beige', alpha=0.5, edgecolor='black', boxstyle='round,pad=0.7'))
 
     # Show the figure
     fig.canvas.draw()
